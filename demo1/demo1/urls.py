@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.http import HttpResponse
+from django.conf.urls import url,include
+
+
+def adminpage(request):
+    return HttpResponse('hello，这是你看到的第一个试图')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url('booktest/',include('booktest.urls'))
 ]
