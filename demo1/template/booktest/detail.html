@@ -2,19 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>detail</title>
+    <title>详情页</title>
+    <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
-    <h2>detail</h2>
-    <h3>书名：{{ book.title }}</h3>
+<div class="container">
+    <h2>详情页</h2>
+    {% if book %}
+    <h3>{{ book.title }}</h3>
     <ul>
-        角色列表：
-        {%for hero in book.heroinfo_set.all  %}
-            <li>{{ hero.name }}</li>
-        {%endfor%}
-    </ul>
+        {% for hero in book.heroinfo_set.all %}
+        <li>{{ hero.name }}--{{ hero.content }} <a href="{% url 'booktest:deletehero' hero.id %}">删除</a>      </li>
+        {% empty %}
+        没有角色信息
+        {% endfor %}
 
-    <br><br><br><br><br>
-    <h3><a href="/booktest/list">返回首页</a></h3>
+    </ul>
+    {% endif %}
+
+    <a href="{% url 'booktest:addhero' book.id %}">添加角色</a>
+    <br>
+    <a href="{% url 'booktest:list' %}">返回列表页</a>
+</div>
+
 </body>
 </html>
